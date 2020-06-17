@@ -73,7 +73,27 @@ public class Agrupamento {
 		}
 		*/
 		//Para que centroid pertece cada ponto
-		
+		ArrayList<ArrayList<Petala>> pontos_de_cada_centroid = new ArrayList<ArrayList<Petala>>();
+		for (int i=0;i<centroids.size();i++) {
+			ArrayList<Petala> p = new ArrayList<Petala>();
+			pontos_de_cada_centroid.add(p); 
+		}
+		for (int i=0;i<petalas.size();i++) {
+			double menor =100;
+			int centroid_menor=0;
+			for (int j=0;j<centroids.size();j++) {
+				if (distancias_centroids.get(j).get(i)<menor) {
+					menor = distancias_centroids.get(j).get(i);
+					centroid_menor=j;
+				}
+			}
+			pontos_de_cada_centroid.get(centroid_menor).add(petalas.get(i));
+		}
+		for (int i=0;i<pontos_de_cada_centroid.size();i++) {
+			System.out.println("Centroid "+i);
+			System.out.println("Petalas: ");
+			System.out.println(pontos_de_cada_centroid.get(i));
+		}
 		//Novos centroids
 	}
 }
