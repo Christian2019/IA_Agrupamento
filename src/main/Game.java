@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 	
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		Agrupamento.Agrupar();
+		Agrupamento.leitura();
 	}
 
 	public Game() {
