@@ -7,14 +7,15 @@ public class Agrupamento {
 	static int k = 3;
 	public static ArrayList<Petala> petalas;
 	static ArrayList<Petala> centroids;
-	static int geracao_atual =0;
-	static ArrayList<ArrayList<Petala>> geracoes;
+	static int geracao_atual; 
+	public static ArrayList<Geracao> geracoes;
 
 	public static void Agrupar() {
-		
+		/*
 		System.out.println("Geracao: "+geracao_atual);
 		System.out.println("Centroids: ");
 		System.out.println(centroids);
+		*/
 		ArrayList<ArrayList<Double>> distancias_centroids = new ArrayList<ArrayList<Double>>();
 		for (int i=0;i<centroids.size();i++) {
 			ArrayList<Double> distancias= new ArrayList<Double>();
@@ -83,8 +84,14 @@ public class Agrupamento {
 			Petala novo_centroid = new Petala(novo_x,novo_y);
 			novos_centroids.add(novo_centroid);
  		}
-		System.out.println("Novos centroids:");
-		System.out.println(novos_centroids);
+		
+		//Gravar Geracao
+		ArrayList<Petala> gc= new ArrayList<Petala>();
+		for (int i=0;i<centroids.size();i++) {
+			gc.add(centroids.get(i));
+		}
+		Geracao geracao = new Geracao(gc,pontos_de_cada_centroid);
+		geracoes.add(geracao);
 		//Condicao de Parada
 		boolean terminou = true;
 		for (int i=0; i<centroids.size();i++) {
@@ -99,6 +106,10 @@ public class Agrupamento {
 		}
 		
 		if (terminou) {
+			
+			System.out.println("Novos centroids:");
+			System.out.println(novos_centroids);
+			
 			System.out.println("FIM!");
 		}else {
 			centroids.clear();
@@ -110,6 +121,8 @@ public class Agrupamento {
 		}
 	}
 	public static void leitura() {
+		geracao_atual=0; 
+		geracoes = new ArrayList<Geracao>();
 		petalas = new ArrayList<Petala>();
 		centroids= new ArrayList<Petala>();
 		Save_Game.load(path);

@@ -60,6 +60,16 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Agrupamento.leitura();
+		for (int i=0;i<Agrupamento.geracoes.size();i++) {
+			System.out.println("Geracao: "+i);
+			System.out.println("Centroids: ");
+			System.out.println(Agrupamento.geracoes.get(i).centroids);
+			for (int j=0;j<Agrupamento.geracoes.get(i).centroids.size();j++) {
+				System.out.println("Centroid: "+j);
+				System.out.println(Agrupamento.geracoes.get(i).pontos_de_cada_centroid.get(j));
+				
+			}
+		}
 	}
 
 	public Game() {
