@@ -1,14 +1,16 @@
 package main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Agrupamento {
 	public static String path = "iris.txt";
-	static int k = 3;
+	public static int k = 3;
 	public static ArrayList<Petala> petalas;
 	static ArrayList<Petala> centroids;
 	static int geracao_atual; 
 	public static ArrayList<Geracao> geracoes;
+	public static ArrayList<Color> cores;
 
 	public static void Agrupar() {
 		/*
@@ -106,11 +108,12 @@ public class Agrupamento {
 		}
 		
 		if (terminou) {
-			
+			/*
 			System.out.println("Novos centroids:");
 			System.out.println(novos_centroids);
 			
 			System.out.println("FIM!");
+		*/
 		}else {
 			centroids.clear();
 			for (int i=0;i<novos_centroids.size();i++) {
@@ -121,10 +124,12 @@ public class Agrupamento {
 		}
 	}
 	public static void leitura() {
-		geracao_atual=0; 
+		geracao_atual=0;
+		Game.ui.geracao=0;
 		geracoes = new ArrayList<Geracao>();
 		petalas = new ArrayList<Petala>();
 		centroids= new ArrayList<Petala>();
+		cores = new ArrayList<Color>();
 		Save_Game.load(path);
 		/*
 		double maior_length=0;
@@ -161,6 +166,14 @@ public class Agrupamento {
 			centroids.add(centroid);
 			
 		}
+		for (int i=0;i<centroids.size();i++) {
+			int r = Game.rand.nextInt(256);
+			int g = Game.rand.nextInt(256);
+			int b = Game.rand.nextInt(256);
+			Color cor = new Color(r,g,b);
+			cores.add(cor);
+		}
+		
 		Agrupar();
 	} 
 }

@@ -32,7 +32,6 @@ import graficos.Spritesheet;
 
 import som.Sound;
 
-
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -53,25 +52,24 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	static Game game;
 	public static int frames;
 	public static BufferedImage background;
-	
+	public static UI ui;
+	boolean restart = false;
 
 	public static void iniciar() {
-		
-	
+
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Agrupamento.leitura();
 		/*
-		for (int i=0;i<Agrupamento.geracoes.size();i++) {
-			System.out.println("Geracao: "+i);
-			System.out.println("Centroids: ");
-			System.out.println(Agrupamento.geracoes.get(i).centroids);
-			for (int j=0;j<Agrupamento.geracoes.get(i).centroids.size();j++) {
-				System.out.println("Centroid: "+j);
-				System.out.println(Agrupamento.geracoes.get(i).pontos_de_cada_centroid.get(j));
-				
-			}
-		}
-		*/
+		 * for (int i=0;i<Agrupamento.geracoes.size();i++) {
+		 * System.out.println("Geracao: "+i); System.out.println("Centroids: ");
+		 * System.out.println(Agrupamento.geracoes.get(i).centroids); for (int
+		 * j=0;j<Agrupamento.geracoes.get(i).centroids.size();j++) {
+		 * System.out.println("Centroid: "+j);
+		 * System.out.println(Agrupamento.geracoes.get(i).pontos_de_cada_centroid.get(j)
+		 * );
+		 * 
+		 * } }
+		 */
 	}
 
 	public Game() {
@@ -83,8 +81,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 		// Inicializando objetos.
-	
-		
+
+		ui = new UI();
 		iniciar();
 	}
 
@@ -93,7 +91,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
-	//	spritesheet = new Spritesheet("/spritesheet.png");
+		// spritesheet = new Spritesheet("/spritesheet.png");
 
 		// Icone Mouse
 		// Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -122,8 +120,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static void main(String[] args) throws InterruptedException, MalformedURLException {
 		autoScale();
 		Sound.fundo.loop();
-	//	 SCALE = 5;
-		System.out.println("SCALE: "+SCALE);
+		// SCALE = 5;
+		System.out.println("SCALE: " + SCALE);
 		game = new Game();
 		game.start();
 	}
@@ -144,8 +142,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void tick() {
-		
-		
+		if (restart) {
+			restart=false;
+			Agrupamento.leitura();
+		}
 	}
 
 	int load_frames = 0;
@@ -159,19 +159,18 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 
 		Graphics g = image.getGraphics();
-		
+
 		g.dispose();
 		g = bs.getDrawGraphics();
 
 		g.setColor(new Color(0, 0, 0));
-		
+
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		
-		UI.render(g);
-		
-		
-	//	g.drawImage(background, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-		
+
+		ui.render(g);
+
+		// g.drawImage(background, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+
 		bs.show();
 	}
 
@@ -204,7 +203,30 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			if (ui.geracao < Agrupamento.geracoes.size() - 1) {
+				ui.geracao++;
+			}
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			if (ui.geracao > 0) {
+				ui.geracao--;
+			}
+
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_UP) {
+			if (Agrupamento.k<Agrupamento.petalas.size()) {
+				Agrupamento.k++;
+				restart=true;
+			}
+		}else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			if (Agrupamento.k>1) {
+				Agrupamento.k--;
+				restart=true;
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_R) {
+			restart=true;
+		}
 	}
 
 	@Override
@@ -247,7 +269,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	@Override
