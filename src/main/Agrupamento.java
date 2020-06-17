@@ -126,7 +126,20 @@ public class Agrupamento {
 		petalas = new ArrayList<Petala>();
 		centroids= new ArrayList<Petala>();
 		Save_Game.load(path);
-		
+		/*
+		double maior_length=0;
+		double maior_width=0;
+		for (int i=0;i<petalas.size();i++) {
+			if (petalas.get(i).petal_length>maior_length) {
+				maior_length = petalas.get(i).petal_length;
+			}
+			if (petalas.get(i).petal_width>maior_width) {
+				maior_width = petalas.get(i).petal_width;
+			}
+		}
+		System.out.println("Maior Length: "+maior_length);
+		System.out.println("Maior Width: "+maior_width);
+		*/
 		for (int i = 0; i < k; i++) {
 
 			boolean repetido = true;

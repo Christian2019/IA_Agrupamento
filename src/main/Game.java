@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private static final long serialVersionUID = 1L;
 	// Janela
 	public static JFrame frame;
-	public static final int WIDTH = 190;
+	public static final int WIDTH = 192;
 	public static final int HEIGHT = 108;
 	public final static int TILE_SIZE = 32;
 	public static int SCALE = 1;
@@ -60,6 +60,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Agrupamento.leitura();
+		/*
 		for (int i=0;i<Agrupamento.geracoes.size();i++) {
 			System.out.println("Geracao: "+i);
 			System.out.println("Centroids: ");
@@ -70,6 +71,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				
 			}
 		}
+		*/
 	}
 
 	public Game() {
@@ -119,7 +121,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public static void main(String[] args) throws InterruptedException, MalformedURLException {
 		autoScale();
-		Sound.fundo.play();
+		Sound.fundo.loop();
 	//	 SCALE = 5;
 		System.out.println("SCALE: "+SCALE);
 		game = new Game();
@@ -162,9 +164,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 
 		g.setColor(new Color(0, 0, 0));
-		// g.setColor(new Color(255, 255, 255));
+		
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		g.drawImage(background, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		
+		UI.render(g);
+		
+		
+	//	g.drawImage(background, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		
 		bs.show();
 	}
