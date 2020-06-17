@@ -109,6 +109,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public static void main(String[] args) throws InterruptedException, MalformedURLException {
 		autoScale();
+		Sound.fundo.play();
 	//	 SCALE = 5;
 		System.out.println("SCALE: "+SCALE);
 		game = new Game();
