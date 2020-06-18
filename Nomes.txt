@@ -1,0 +1,10 @@
+Nomes: Christian Schmidt Guilherme Deconto
+
+Geracoes = etapas ate achar o centroid definitivo
+
+Comandos: 
+s ativa/desativa som :D
+> aumenta as geracoes
+< diminui as geracoes
+^ aumenta o k
+v diminui o k

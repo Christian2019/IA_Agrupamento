@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Agrupamento {
-	public static String path = "iris.txt";
+	public static String path = "/iris.txt";
 	public static int k = 3;
 	public static ArrayList<Petala> petalas;
 	static ArrayList<Petala> centroids;

@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -153,21 +155,22 @@ public class Save_Game {
 */
 		return write;
 	}
-
+	  
 	public static void load(String path) {
 		
 		int cont_line = 1;
-		File file = new File(path);
-		if (file.exists()) {
+		InputStream is = Save_Game.class.getResourceAsStream(path);
+		
 			String singleLine = null;
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(path));
+				
+				BufferedReader reader=new BufferedReader(new InputStreamReader(is));
 				try {
 					while ((singleLine = reader.readLine()) != null) {
 						
 						if (cont_line > 1) {
-							
-							String[] dados = singleLine.split(",");
+
+						String[] dados = singleLine.split(",");
 							double petal_length = Double.parseDouble(dados[2]);
 							 double petal_width=Double.parseDouble(dados[3]);
 							 Petala petala = new Petala(petal_length,petal_width);
@@ -179,10 +182,10 @@ public class Save_Game {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			} catch (FileNotFoundException e) {
+			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
-		}
+		
 	}
 }
