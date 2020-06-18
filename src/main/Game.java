@@ -54,6 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static BufferedImage background;
 	public static UI ui;
 	boolean restart = false;
+	boolean musica_ativa=false;
 
 	public static void iniciar() {
 
@@ -119,7 +120,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public static void main(String[] args) throws InterruptedException, MalformedURLException {
 		autoScale();
-		Sound.fundo.loop();
+	
 		// SCALE = 5;
 		System.out.println("SCALE: " + SCALE);
 		game = new Game();
@@ -226,6 +227,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			restart=true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_S) {
+			if (musica_ativa) {
+				musica_ativa=false;
+				Sound.fundo.stop();	
+			}else {
+				musica_ativa=true;
+				Sound.fundo.loop();
+			}
 		}
 	}
 
