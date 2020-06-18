@@ -215,7 +215,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			if (Agrupamento.k<Agrupamento.petalas.size()) {
+			if (Agrupamento.k<102) {
 				Agrupamento.k++;
 				restart=true;
 			}
